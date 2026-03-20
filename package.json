@@ -1,5 +1,5 @@
 {
-  "name": "paper-reader",
+  "name": "academic-talon",
   "description": "A skill for searching academic papers, analyzing PDFs, and archiving to Zotero.",
   "triggers": [
     "literature review",

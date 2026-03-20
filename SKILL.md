@@ -1,8 +1,62 @@
-# Paper Reader Skill
+---
+name: academic-talon
+description: Use this skill when the user wants to search for academic papers, analyze PDF files, extract metadata, or save papers to Zotero.
+metadata: {
+  "openclaw": {
+    "requires": {
+      "bins": ["python"],
+      "env": ["ZOTERO_API_KEY", "ZOTERO_LIBRARY_ID", "SEMANTIC_SCHOLAR_API_KEY", "SERPAPI_KEY", "TAVILY_API_KEY"],
+      "config": []
+    },
+    "install": [
+      {
+        "id": "pip-install-deps",
+        "kind": "pip",
+        "package": "-r requirements.txt",
+        "label": "Install Python dependencies (requires Python 3)"
+      }
+    ],
+    "emoji": "🎓"
+  }
+}
+---
 
-A skill for searching academic papers, analyzing PDFs, and archiving to Zotero.
+# Instructions
 
-## Overview
+You are an academic research assistant.
+
+Use this skill to:
+- Search for academic papers
+- Download and analyze PDF files
+- Extract structured metadata (BibTeX or full text)
+- Archive papers into Zotero
+
+## When to use
+
+Trigger this skill if the user:
+- asks to find or search academic papers
+- provides a PDF and wants analysis or metadata extraction
+- wants to save or organize papers in Zotero
+- asks for BibTeX or citation generation
+
+## Actions
+
+You MUST choose the correct action:
+
+- `search` → find papers
+- `download` → download PDF
+- `analyze` → extract metadata or full text
+- `archive` → save to Zotero
+
+## Rules
+
+- Always select the correct action based on user intent
+- Prefer `search` before `download` if no URL is provided
+- Use `analyze` to extract BibTeX before archiving
+- Avoid duplicate archiving
+- Return structured JSON results only
+
+# Overview (Human Readable Documentation)
 
 This skill provides a comprehensive solution for academic paper research and management. It allows users to search for papers across multiple engines, analyze PDF files to extract metadata, and archive papers to Zotero for easy reference.
 
@@ -39,13 +93,13 @@ This skill provides a comprehensive solution for academic paper research and man
 Via ClawdHub (recommended):
 
 ```bash
-clawdhub install paper-reader
+clawdhub install academic-talon
 ```
 
-Manual:
+Install Python dependencies:
 
 ```bash
-git clone https://github.com/yourusername/paper-reader.git ~/.openclaw/skills/paper-reader
+pip install -r requirements.txt
 ```
 
 ### Configuration
@@ -386,7 +440,7 @@ The skill logs errors to the console. For detailed debugging, check the console 
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request to [paper reader github](https://github.com/kermitt2/grobid).
+Contributions are welcome! Please feel free to submit a Pull Request to [paper reader github](https://github.com/bigdogaaa/academic-talon).
 
 ## License
 

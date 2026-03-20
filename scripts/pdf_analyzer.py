@@ -2,6 +2,14 @@ import os
 import requests
 import hashlib
 from typing import Optional, Dict
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+dotenv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env')
+if os.path.exists(dotenv_path):
+    load_dotenv(dotenv_path)
+else:
+    print(f"Warning: .env file not found at {dotenv_path}")
 
 # Cache directory
 CACHE_DIR = ".cache"
@@ -17,7 +25,9 @@ if not os.path.exists(PDF_DIR):
 def check_grobid_status() -> bool:
     """Check if Grobid service is running"""
     try:
-        response = requests.get("http://localhost:8070/api/isalive", timeout=10)
+        # Get GROBID API URL from environment variable, default to http://localhost:8070/api
+        grobid_api_url = os.getenv("GROBID_API_URL", "http://localhost:8070/api")
+        response = requests.get(f"{grobid_api_url}/isalive", timeout=10)
         return response.status_code == 200 and response.text == "true"
     except Exception:
         return False
@@ -196,8 +206,9 @@ def process_pdf(pdf_input: str, endpoint: str = "processFulltextDocument") -> st
         print(f"Loaded XML response from cache: {get_xml_cache_file(pdf_path, endpoint)}")
         return xml_response
     
-    # Grobid API endpoint
-    grobid_url = f"http://localhost:8070/api/{endpoint}"
+    # Get GROBID API URL from environment variable, default to http://localhost:8070/api
+    grobid_api_url = os.getenv("GROBID_API_URL", "http://localhost:8070/api")
+    grobid_url = f"{grobid_api_url}/{endpoint}"
     
     print(f"Processing PDF: {pdf_path}")
     print(f"Grobid URL: {grobid_url}")

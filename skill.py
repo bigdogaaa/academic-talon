@@ -5,8 +5,8 @@ from scripts.search import search_papers
 from scripts.pdf_analyzer import analyze_pdf_header, analyze_pdf_fulltext, download_pdf
 from scripts.zotero_archiver import archive_paper
 
-class PaperReaderSkill:
-    """Paper Reader Skill for searching, analyzing, and archiving academic papers"""
+class AcademicTalonSkill:
+    """Academic Talon Skill for searching, analyzing, and archiving academic papers"""
     
     def __init__(self):
         """Initialize the skill"""
@@ -208,4 +208,4 @@ class PaperReaderSkill:
             }
 
 # Create skill instance
-skill = PaperReaderSkill()
+skill = AcademicTalonSkill()

@@ -1,6 +1,8 @@
-# Paper Reader Skill
+# Academic Talon Skill
 
-A skill for searching academic papers, analyzing PDFs, and archiving to Zotero.
+## About
+
+This is the base repository for the Academic Talon skill, which provides functionality for searching academic papers, analyzing PDFs, and archiving to Zotero. This repository includes the core skill code as well as additional test scripts for verifying functionality.
 
 ## Features
 
@@ -116,20 +118,17 @@ print(f"Archiving result: {result}")
 
 ## Testing
 
-Run the test scripts to verify functionality:
+This repository includes additional test scripts in the `test` directory for verifying functionality:
 
 ```bash
-# Test paper search
-python test_hallucination_search.py
+# Test paper search with engine weight distribution
+python test/test_search.py
 
-# Test PDF analysis
-python test_pdf_analysis.py
+# Test the complete skill functionality
+python test/test_skill.py
 
-# Test Zotero archiving
-python test_zotero_archiving.py
-
-# Test full workflow
-python test_full_workflow.py
+# Test PDF URL analysis and download
+python test/test_pdf_url.py
 ```
 
 ## Skill Integration

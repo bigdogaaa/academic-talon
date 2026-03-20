@@ -1,0 +1,91 @@
+name: academic-talon
+name_zh: 学术利爪
+description: A skill for searching academic papers, analyzing PDFs, and archiving to Zotero
+description_zh: 用于搜索学术论文、分析PDF和归档到Zotero的技能
+author: Your Name
+author_email: your.email@example.com
+version: 1.0.0
+
+# Skill type: code (local execution)
+type: code
+
+# Main entry point
+main: main.py
+
+# Inputs
+inputs:
+  action:
+    type: string
+    description: Action to perform (search, download, analyze, archive)
+    required: true
+  query:
+    type: string
+    description: Search query (for search action)
+  limit:
+    type: integer
+    description: Number of results to return (for search action)
+    default: 10
+  source:
+    type: string
+    description: Search source (all, semantic_scholar, arxiv, google_scholar, tavily)
+    default: all
+  engine_weights:
+    type: object
+    description: Dictionary of engine weights (for search action)
+    default: {"arxiv": 5, "google_scholar": 3, "semantic_scholar": 1, "tavily": 1}
+  url:
+    type: string
+    description: URL of the PDF file (for download action)
+  filename:
+    type: string
+    description: Filename to save the PDF as (for download action)
+  save_dir:
+    type: string
+    description: Directory to save the PDF in (for download action)
+  paper_info:
+    type: object
+    description: Paper information (for download and archive actions)
+  collection:
+    type: string
+    description: Name of the collection to add the paper to (for archive action)
+    default: openclaw
+  pdf_input:
+    type: string
+    description: Path to local PDF file or URL to PDF (for analyze action)
+  analysis_type:
+    type: string
+    description: Type of analysis (header, fulltext)
+    default: header
+
+# Outputs
+outputs:
+  success:
+    type: boolean
+    description: Whether the action was successful
+  action:
+    type: string
+    description: The action performed
+  query:
+    type: string
+    description: The search query (for search action)
+  results:
+    type: array
+    description: The search results (for search action)
+  url:
+    type: string
+    description: The URL of the PDF file (for download action)
+  pdf_path:
+    type: string
+    description: The path to the downloaded PDF file (for download action)
+  pdf_input:
+    type: string
+    description: The PDF input (for analyze action)
+  analysis_type:
+    type: string
+    description: The type of analysis (for analyze action)
+  result:
+    type: string
+    description: The analysis result (for analyze action) or archiving result (for archive action)
+  error:
+    type: string
+    description: Error message if the action failed
