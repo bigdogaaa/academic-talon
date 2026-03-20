@@ -1,0 +1,11 @@
+@misc{-1,
+  author = {Ji, Ziwei and Lee, Nayeon and Frieske, Rita and Yu, Tiezheng and Su, Dan and Xu, Yan and Ishii, Etsuko and Bang, Yejin and Chen, Delong and Dai, Wenliang and Chan, Shu and Madotto, Andrea and Fung, Pascale},
+  title = {Survey of Hallucination in Natural Language Generation},
+  date = {2024-07-14},
+  year = {2024},
+  month = {7},
+  day = {14},
+  eprint = {arXiv:2202.03629v7[cs.CL]},
+  abstract = {Natural Language Generation (NLG) has improved exponentially in recent years thanks to the development of sequence-to-sequence deep learning technologies such as Transformer-based language models. This advancement has led to more fluent and coherent NLG, leading to improved development in downstream tasks such as abstractive summarization, dialogue generation and data-to-text generation. However, it is also apparent that deep learning based generation is prone to hallucinate unintended text, which degrades the system performance and fails to meet user expectations in many real-world scenarios. To address this issue, many studies have been presented in measuring and mitigating hallucinated texts, but these have never been reviewed in a comprehensive manner before. In this survey, we thus provide a broad overview of the research progress and challenges in the hallucination problem in NLG. The survey is organized into two parts: (1) a general overview of metrics, mitigation methods, and future directions; (2) an overview of task-specific research progress on hallucinations in the following downstream tasks, namely abstractive summarization, dialogue generation, generative question answering, data-to-text generation, machine translation, and visual-language generation; and (3) hallucinations in large language models (LLMs) 1. This survey serves to facilitate collaborative efforts among researchers in tackling the challenge of hallucinated texts in NLG. CCS Concepts: • Computing methodologies → Natural language generation; Neural networks.},
+keywords = {Hallucination, Intrinsic Hallucination, Extrinsic Hallucination, Faithfulness in NLG, Factuality in NLG, Consistency in NLG}
+}

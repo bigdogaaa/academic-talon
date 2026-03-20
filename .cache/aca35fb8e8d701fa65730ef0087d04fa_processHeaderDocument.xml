@@ -1,0 +1,6 @@
+@misc{-1,
+  author = {Erdem, Orhan and Hassett, Kristi and Egriboyun, Feyzullah},
+  title = {Evaluating the Accuracy of Chatbots in Financial Literature},
+  abstract = {We evaluate the reliability of two chatbots, ChatGPT (4o and o1-preview versions), and Gemini Advanced, in providing references on financial literature and employing novel methodologies. Alongside the conventional binary approach commonly used in the literature, we developed a nonbinary approach and a recency measure to assess how hallucination rates vary with how recent a topic is. After analyzing 150 citations, ChatGPT-4o had a hallucination rate of 20.0% (95% CI, 13.6%-26.4%), while the o1-preview had a hallucination rate of 21.3% (95% CI, 14.8%-27.9%). In contrast, Gemini Advanced exhibited higher hallucination rates: 76.7% (95% CI, 69.9%-83.4%). While hallucination rates increased for more recent topics, this trend was not statistically significant for Gemini Advanced. These findings emphasize the importance of verifying chatbot-provided references, particularly in rapidly evolving fields.},
+keywords = {Artificial Intelligence, Chatbots, ChatGPT, Gemini, Hallucination, Large Language Model}
+}
