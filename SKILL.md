@@ -5,7 +5,7 @@ metadata: {
   "openclaw": {
     "requires": {
       "bins": ["python"],
-      "env": ["ZOTERO_API_KEY", "ZOTERO_LIBRARY_ID", "SEMANTIC_SCHOLAR_API_KEY", "SERPAPI_KEY", "TAVILY_API_KEY"],
+      "env": ["ZOTERO_API_KEY", "ZOTERO_LIBRARY_ID"],
       "config": []
     },
     "install": [
@@ -16,6 +16,7 @@ metadata: {
         "label": "Install Python dependencies (requires Python 3)"
       }
     ],
+    "primaryEnv": "ZOTERO_API_KEY",
     "emoji": "🎓"
   }
 }

@@ -2,7 +2,7 @@
 
 ## About
 
-This is the base repository for the Academic Talon skill, which provides functionality for searching academic papers, analyzing PDFs, and archiving to Zotero. This repository includes the core skill code as well as additional test scripts for verifying functionality.
+This is the base repository for the [Academic Talon skill](https://clawhub.ai/bigdogaaa/academic-talon), which provides functionality for searching academic papers, analyzing PDFs, and archiving to Zotero. This repository includes the core skill code as well as additional test scripts for verifying functionality.
 
 ## Features
 
@@ -27,8 +27,8 @@ This is the base repository for the Academic Talon skill, which provides functio
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/paper-reader.git
-   cd paper-reader
+   git clone https://github.com/bigdogaaa/academic-talon.git
+   cd academic-talon
    ```
 
 2. **Install dependencies**

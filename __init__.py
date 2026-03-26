@@ -1,6 +1,6 @@
-"""Paper Reader Skill"""
+"""Academic Talon Skill"""
 
-from .skill import PaperReaderSkill
+from .skill import AcademicTalonSkill
 
-__all__ = ["PaperReaderSkill"]
-__version__ = "1.0.0"
+__all__ = ["AcademicTalonSkill"]
+__version__ = "1.0.1"
