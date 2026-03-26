@@ -1,6 +1,11 @@
+import os
+import sys
+
+# Add the project root to the Python path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from scripts.zotero_archiver import archive_paper
 from scripts.pdf_analyzer import analyze_pdf_header
-import os
 
 # Test Zotero archiving functionality
 print("=== Testing Zotero Archiving ===")

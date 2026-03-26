@@ -131,7 +131,7 @@ GROBID_API_URL=http://localhost:8070/api
 ### Search Papers
 
 ```python
-from skills.paper_reader.skill import skill
+from skill import skill
 
 # Search for papers on "hallucination"
 result = skill.run({
@@ -163,7 +163,7 @@ print(result)
 ### Download PDF
 
 ```python
-from skills.paper_reader.skill import skill
+from skill import skill
 
 # Download PDF from URL with custom filename
 result = skill.run({
@@ -200,7 +200,7 @@ print(result)
 ### Analyze PDF
 
 ```python
-from skills.paper_reader.skill import skill
+from skill import skill
 
 # Analyze PDF header from local path
 result = skill.run({
@@ -224,7 +224,7 @@ print(result)
 ### Archive to Zotero
 
 ```python
-from skills.paper_reader.skill import skill
+from skill import skill
 
 # Archive paper to Zotero
 result = skill.run({
@@ -352,7 +352,7 @@ Common errors include:
 ### Example 1: Search for papers
 
 ```python
-from skills.paper_reader.skill import skill
+from skill import skill
 
 # Search for papers on "artificial intelligence"
 result = skill.run({
@@ -378,7 +378,7 @@ else:
 ### Example 2: Analyze PDF and archive to Zotero
 
 ```python
-from skills.paper_reader.skill import skill
+from skill import skill
 import os
 
 # Path to PDF file
@@ -387,7 +387,7 @@ pdf_path = os.path.join(os.path.dirname(__file__), "papers", "example.pdf")
 # Analyze PDF header
 analyze_result = skill.run({
     "action": "analyze",
-    "pdf_path": pdf_path,
+    "pdf_input": pdf_path,
     "analysis_type": "header"
 })
 
