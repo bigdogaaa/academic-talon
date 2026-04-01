@@ -67,7 +67,7 @@ This is the base repository for the [Academic Talon skill](https://clawhub.ai/bi
 
    services:
      grobid:
-       image: docker.1ms.run/grobid/grobid:0.8.2-crf
+       image: grobid/grobid:0.8.2-crf
        container_name: grobid
        restart: unless-stopped
 
@@ -93,7 +93,7 @@ This is the base repository for the [Academic Talon skill](https://clawhub.ai/bi
          - grobid-net
 
      nginx:
-       image: docker.1ms.run/nginx:latest
+       image: nginx:latest
        container_name: grobid-nginx
        restart: unless-stopped
 

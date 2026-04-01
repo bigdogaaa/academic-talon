@@ -16,7 +16,8 @@ metadata: {
         "label": "Install Python dependencies (requires Python 3)"
       }
     ],
-    "emoji": "🎓"
+    "emoji": "🎓",
+    "notes": "This skill requires Zotero API credentials for archiving functionality and optional API keys for additional search engines. It uses GROBID for PDF parsing, which can be run locally or remotely."
   }
 }
 ---
@@ -73,11 +74,11 @@ This skill provides a comprehensive solution for academic paper research and man
    - Header analysis (returns BibTeX format)
    - Full text analysis (returns XML format)
    - Uses GROBID API for parsing
-3. **Zotero archiving**
-   - Archives papers to Zotero library
+3. **Optional Zotero archiving**
+   - Archives papers to Zotero library (requires Zotero API credentials)
    - Adds PDF URL as link
    - Avoids duplicate entries
-   - Adds items to "openclaw" collection
+   - Adds items to specified collection (default: "openclaw")
 
 ## Quick Reference
 
@@ -109,10 +110,10 @@ pip install -r requirements.txt
 Create a `.env` file in the skill directory with the following variables:
 
 ```
-# Zotero API credentials
-ZOTERO_API_KEY=your_zotero_api_key
-ZOTERO_LIBRARY_ID=your_zotero_library_id
-ZOTERO_LIBRARY_TYPE=user # or group
+# Zotero API credentials (optional, required only for archive functionality)
+# ZOTERO_API_KEY=your_zotero_api_key
+# ZOTERO_LIBRARY_ID=your_zotero_library_id
+# ZOTERO_LIBRARY_TYPE=user # or group
 
 # Optional API keys for additional search engines
 SEMANTIC_SCHOLAR_API_KEY=your_semantic_scholar_api_key # Optional
@@ -128,7 +129,7 @@ GROBID_API_URL=http://localhost:8070/api
 - **GROBID server** - You can start the server using one of the following methods:
 
   **Official Quick Start:**
-  - Follow the instructions on the [GROBID Docker Hub page](https://hub.docker.com/r/grobid/grobid)
+  - Follow the instructions on the [GROBID Docker Hub page](https://hub.docker.com/r/grobid/grobid) or [Quick Start](https://grobid.readthedocs.io/en/latest/getting_started/).
   **Docker Compose Deployment:**
   - Create a `compose.yml` file with the following content:
   ```yaml
@@ -136,7 +137,7 @@ GROBID_API_URL=http://localhost:8070/api
 
   services:
     grobid:
-      image: docker.1ms.run/grobid/grobid:0.8.2-crf
+      image: grobid/grobid:0.8.2-crf
       container_name: grobid
       restart: unless-stopped
 
@@ -162,7 +163,7 @@ GROBID_API_URL=http://localhost:8070/api
         - grobid-net
 
     nginx:
-      image: docker.1ms.run/nginx:latest
+      image: nginx:latest
       container_name: grobid-nginx
       restart: unless-stopped
 
@@ -512,14 +513,14 @@ else:
 
 1. **GROBID server not accessible**
    - Make sure GROBID server is running
-   - Check the GROBID\_API\_URL in .env file
+   - Check the GROBID_API_URL in .env file
 2. **Zotero API errors**
-   - Verify ZOTERO\_API\_KEY and ZOTERO\_LIBRARY\_ID in .env file
+   - Verify ZOTERO_API_KEY and ZOTERO_LIBRARY_ID in .env file
    - Check Zotero API rate limits
 3. **Search engines returning empty results**
-   - For Google Scholar: Ensure SERPAPI\_KEY is configured
-   - For Tavily: Ensure TAVILY\_API\_KEY is configured
-   - For Semantic Scholar: Consider adding SEMANTIC\_SCHOLAR\_API\_KEY for higher rate limits
+   - For Google Scholar: Ensure SERPAPI_KEY is configured
+   - For Tavily: Ensure TAVILY_API_KEY is configured
+   - For Semantic Scholar: Consider adding SEMANTIC_SCHOLAR_API_KEY for higher rate limits
 4. **PDF analysis failing**
    - Ensure PDF file is accessible
    - Check GROBID server status
@@ -527,6 +528,25 @@ else:
 ### Logs
 
 The skill logs errors to the console. For detailed debugging, check the console output.
+
+## Security Considerations
+
+### Data Privacy
+- **PDF Processing**: When analyzing PDF files, the skill sends PDF content to the configured GROBID API endpoint. For maximum privacy, run GROBID locally using the provided Docker Compose setup.
+- **API Keys**: Store API keys in the .env file and never commit them to version control.
+- **File Storage**: Downloaded PDF files are stored in the `pdfs` directory within the skill's installation directory.
+
+### Best Practices
+- **Local GROBID**: Use the provided Docker Compose setup to run GROBID locally, ensuring PDF content is not sent to external services.
+- **Restricted Zotero Access**: Create a dedicated Zotero API key with limited permissions for archiving.
+- **Environment Variables**: Use environment variables for API keys instead of hardcoding them.
+- **Network Security**: When using the Docker Compose setup, the GROBID service is not exposed externally, and the nginx proxy includes IP whitelist protection.
+
+### Risk Mitigation
+- The skill only processes PDF files from user-provided URLs or local files within the skill's `pdfs` directory.
+- All file operations are restricted to the skill's installation directory, preventing unauthorized file access.
+- The skill does not request elevated permissions or modify system files.
+- The Docker Compose setup includes health checks and security best practices.
 
 ## Contributing
 
