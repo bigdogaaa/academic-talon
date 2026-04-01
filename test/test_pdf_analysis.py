@@ -10,7 +10,7 @@ from scripts.pdf_analyzer import analyze_pdf_header, analyze_pdf_fulltext
 print("=== Testing PDF Analysis ===")
 
 # Path to the downloaded PDF
-pdf_path = os.path.join(os.path.dirname(__file__), "pdfs", "test_hallucination_paper.pdf")
+pdf_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "pdfs", "test_paper.pdf")
 
 if not os.path.exists(pdf_path):
     print(f"PDF file not found: {pdf_path}")

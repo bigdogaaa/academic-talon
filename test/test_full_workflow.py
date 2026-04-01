@@ -1,7 +1,12 @@
+import os
+import sys
+
+# Add the project root to the Python path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from scripts.search import search_papers, download_pdf
 from scripts.pdf_analyzer import analyze_pdf_header
 from scripts.zotero_archiver import archive_paper
-import os
 
 # Test full workflow: search -> download -> analyze -> archive
 print("=== Testing Full Workflow ===")

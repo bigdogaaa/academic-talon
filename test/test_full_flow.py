@@ -7,8 +7,8 @@ import os
 import sys
 from dotenv import load_dotenv
 
-# Add scripts directory to path
-sys.path.append(os.path.join(os.path.dirname(__file__), 'scripts'))
+# Add the project root to the Python path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from scripts.pdf_analyzer import analyze_pdf_header
 from scripts.zotero_archiver import archive_paper
@@ -18,7 +18,7 @@ load_dotenv()
 
 # Test PDF file path
 # Use an existing PDF in the pdfs directory
-test_pdf_path = os.path.join(os.path.dirname(__file__), 'pdfs', 'Test_Paper_on_Hallucination_2023.pdf')
+test_pdf_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'pdfs', 'Test_Paper_on_Hallucination_2023.pdf')
 
 if not os.path.exists(test_pdf_path):
     print(f"Test PDF file not found: {test_pdf_path}")

@@ -5,7 +5,7 @@ metadata: {
   "openclaw": {
     "requires": {
       "bins": ["python"],
-      "env": ["ZOTERO_API_KEY", "ZOTERO_LIBRARY_ID"],
+      "env": [],
       "config": []
     },
     "install": [
@@ -16,7 +16,6 @@ metadata: {
         "label": "Install Python dependencies (requires Python 3)"
       }
     ],
-    "primaryEnv": "ZOTERO_API_KEY",
     "emoji": "🎓"
   }
 }
@@ -27,6 +26,7 @@ metadata: {
 You are an academic research assistant.
 
 Use this skill to:
+
 - Search for academic papers
 - Download and analyze PDF files
 - Extract structured metadata (BibTeX or full text)
@@ -35,6 +35,7 @@ Use this skill to:
 ## When to use
 
 Trigger this skill if the user:
+
 - asks to find or search academic papers
 - provides a PDF and wants analysis or metadata extraction
 - wants to save or organize papers in Zotero
@@ -124,7 +125,95 @@ GROBID_API_URL=http://localhost:8070/api
 
 ### Required Services
 
-- **GROBID server** - Follow the instructions on the [GROBID GitHub page](https://github.com/kermitt2/grobid) to start the server.
+- **GROBID server** - You can start the server using one of the following methods:
+
+  **Official Quick Start:**
+  - Follow the instructions on the [GROBID Docker Hub page](https://hub.docker.com/r/grobid/grobid)
+  **Docker Compose Deployment:**
+  - Create a `compose.yml` file with the following content:
+  ```yaml
+  version: "3.9"
+
+  services:
+    grobid:
+      image: docker.1ms.run/grobid/grobid:0.8.2-crf
+      container_name: grobid
+      restart: unless-stopped
+
+      # ❗ Do not expose port externally
+      expose:
+        - "8070"
+
+      environment:
+        JAVA_OPTS: "-Xms512m -Xmx4g"
+        GROBID_MAX_CONCURRENCY: "1"
+
+      volumes:
+        - ./grobid/tmp:/opt/grobid/tmp
+        - ./grobid/logs:/opt/grobid/logs
+
+      healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:8070/api/isalive"]
+        interval: 30s
+        timeout: 5s
+        retries: 5
+
+      networks:
+        - grobid-net
+
+    nginx:
+      image: docker.1ms.run/nginx:latest
+      container_name: grobid-nginx
+      restart: unless-stopped
+
+      ports:
+        - "8080:8080"
+
+      volumes:
+        - ./nginx.conf:/etc/nginx/conf.d/default.conf
+        # Uncomment the line below if you want to add username/password
+        # - ./.htpasswd:/etc/nginx/.htpasswd
+
+      depends_on:
+        - grobid
+
+      networks:
+        - grobid-net
+
+  networks:
+    grobid-net:
+  ```
+  - Create an `nginx.conf` file with the following content:
+  ```nginx
+  server {
+      listen 8080;
+
+      location / {
+          proxy_pass http://grobid:8070;
+
+          # =========================
+          # ✅ IP Whitelist (Important)
+          # =========================
+          allow 127.0.0.1;        # Localhost
+          # allow 10.0.0.0/8;     # Internal network (optional)
+
+          deny all;
+
+          # =========================
+          # 🔐 Optional: Basic Auth
+          # =========================
+          # auth_basic "Restricted";
+          # auth_basic_user_file /etc/nginx/.htpasswd;
+
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+      }
+  }
+  ```
+  - Run `docker-compose up -d` to start the services
+  **Default Configuration:**
+  - GROBID API URL: `http://localhost:8070/api`
+  - If using the provided Docker Compose setup, access GROBID at: `http://localhost:8080/api`
 
 ## Usage
 

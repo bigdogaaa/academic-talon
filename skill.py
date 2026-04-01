@@ -43,13 +43,25 @@ class AcademicTalonSkill:
         Args:
             url: URL of the PDF file
             filename: Optional filename to save the PDF as
-            save_dir: Optional directory to save the PDF in
+            save_dir: Optional directory to save the PDF in (must be within the skill's pdfs directory)
             paper_info: Optional paper information for generating citation key
             
         Returns:
             Path to the downloaded PDF file
         """
         try:
+            # Restrict save_dir to be within the skill's pdfs directory
+            if save_dir:
+                # Get the skill's pdfs directory
+                skill_dir = os.path.dirname(__file__)
+                pdfs_dir = os.path.join(skill_dir, "pdfs")
+                # Resolve the absolute path of save_dir
+                save_dir_abs = os.path.abspath(save_dir)
+                # Check if save_dir is within pdfs_dir
+                if not save_dir_abs.startswith(pdfs_dir):
+                    print("Error: save_dir must be within the skill's pdfs directory")
+                    return ""
+            
             pdf_path = download_pdf(url, filename, save_dir, paper_info)
             if not pdf_path:
                 return ""
@@ -62,13 +74,25 @@ class AcademicTalonSkill:
         """Analyze PDF file
         
         Args:
-            pdf_input: Path to local PDF file or URL to PDF
+            pdf_input: URL to PDF or path to local PDF file within the skill's pdfs directory
             analysis_type: Type of analysis ("header" or "fulltext")
             
         Returns:
             Analysis result (BibTeX for header, XML for fulltext)
         """
         try:
+            # Restrict pdf_input to be either a URL or within the skill's pdfs directory
+            if not (pdf_input.startswith('http://') or pdf_input.startswith('https://')):
+                # It's a local file path, check if it's within the skill's pdfs directory
+                skill_dir = os.path.dirname(__file__)
+                pdfs_dir = os.path.join(skill_dir, "pdfs")
+                # Resolve the absolute path of pdf_input
+                pdf_input_abs = os.path.abspath(pdf_input)
+                # Check if pdf_input is within pdfs_dir
+                if not pdf_input_abs.startswith(pdfs_dir):
+                    print("Error: pdf_input must be a URL or within the skill's pdfs directory")
+                    return "Error: pdf_input must be a URL or within the skill's pdfs directory"
+            
             if analysis_type == "header":
                 return analyze_pdf_header(pdf_input)
             elif analysis_type == "fulltext":

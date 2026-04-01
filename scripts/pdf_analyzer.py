@@ -12,12 +12,12 @@ else:
     print(f"Warning: .env file not found at {dotenv_path}")
 
 # Cache directory
-CACHE_DIR = ".cache"
+CACHE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), ".cache")
 if not os.path.exists(CACHE_DIR):
     os.makedirs(CACHE_DIR)
 
 # PDF directory
-PDF_DIR = "pdfs"
+PDF_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "pdfs")
 if not os.path.exists(PDF_DIR):
     os.makedirs(PDF_DIR)
 
